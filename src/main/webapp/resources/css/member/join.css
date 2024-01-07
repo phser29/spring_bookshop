@@ -48,7 +48,6 @@
 	border:none;
 	font-size:28px;
 }
-
 /* 비밀번호 영역 */
 .pw_wrap{
 	width: 100%;
@@ -245,7 +244,58 @@
     color: white;
 }
 
+/* 중복아이디 존재하는 경우 */
+.id_input_re_1{
+	color : green;
+	display : none;
+}
+
+.id_input_re_2{
+	color : red;
+	display : none;
+}
+
 /* float 속성 해제 */
 .clearfix{
 	clear: both;
 }
+
+/* 메일 인증번호 체크 */
+#mail_check_input_box_false{
+    background-color:#ebebe4;
+}
+ 
+#mail_check_input_box_true{
+    background-color:white;
+}
+
+/* 회원가입 유효성 검사 */
+.final_id_ck{
+    display: none;
+}
+.final_pw_ck{
+    display: none;
+}
+.final_pwck_ck{
+    display: none;
+}
+.final_name_ck{
+    display: none;
+}
+.final_mail_ck{
+    display: none;
+}
+.final_addr_ck{
+    display: none;
+}
+
+/* 비밀번호 확인 일치 검사 */
+.pwck_input_re_1{
+        color : green;
+        display : none;    
+}
+.pwck_input_re_2{
+        color : red;
+        display : none;    
+}    
+ 

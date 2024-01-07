@@ -12,7 +12,7 @@
   				#{memberPw},
   				#{memberName}, 
   				#{memberMail}, 
-  				#{memberAddr1}, 
+  				#{memberAddr1},
   				#{memberAddr2}, 
   				#{memberAddr3}, 
   				0,
