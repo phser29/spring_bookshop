@@ -23,8 +23,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
-	@Autowired
-	private JavaMailSender mailSender;
+//	@Autowired
+//	private JavaMailSender mailSender;
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public void joinGET() {
@@ -61,36 +61,37 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
-	@ResponseBody
-	public void mailcheckGET(String email) throws Exception {
-		
-		log.info("데이터 전송확인");
-		log.info("인증이메일: " + email);
-		
-		Random random = new Random();
-		int checkNum = random.nextInt(888888) + 111111;
-		log.info("인증번호: " + checkNum);
-		
-		String setFrom = "quaj628@gmail.com";
-		String toMail = email;
-		String title = "회원가입 인증 이메일 입니다.";
-		String content = "홈페이지를 방문해주셔서 감사합니다."+
-						 "<br><br>"+
-						 "인증 번호는" + checkNum + " 입니다."+
-						 "해당 인증번호를 인증번호 확인란에 기입하여 주세요";
-		
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-            helper.setFrom(setFrom);
-            helper.setTo(toMail);
-            helper.setSubject(title);
-            helper.setText(content,true);
-            mailSender.send(message);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+// 	이메일 전송 시 서버 오류 발생 네이버 문의 필요
+//	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+//	@ResponseBody
+//	public void mailcheckGET(String email) throws Exception {
+//		
+//		log.info("데이터 전송확인");
+//		log.info("인증이메일: " + email);
+//		
+//		Random random = new Random();
+//		int checkNum = random.nextInt(888888) + 111111;
+//		log.info("인증번호: " + checkNum);
+//		
+//		String setFrom = "quaj123@naver.com";
+//		String toMail = email;
+//		String title = "회원가입 인증 이메일 입니다.";
+//		String content = "홈페이지를 방문해주셔서 감사합니다."+
+//						 "<br><br>"+
+//						 "인증 번호는" + checkNum + " 입니다."+
+//						 "해당 인증번호를 인증번호 확인란에 기입하여 주세요";
+//		
+//		try {
+//			MimeMessage message = mailSender.createMimeMessage();
+//            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+//            helper.setFrom(setFrom);
+//            helper.setTo(toMail);
+//            helper.setSubject(title);
+//            helper.setText(content,true);
+//            mailSender.send(message);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 }

@@ -3,7 +3,6 @@ let idckCheck = false;
 let pwCheck = false;
 let pwckCheck = false;
 let nameCheck = false;
-let mailCheck = false;
 let mailnumCheck = false;
 let addressCheck = false;
 
@@ -15,7 +14,7 @@ $(document).ready(function() {
 		let pwck = $('.pwck_input').val();
 		let name = $('.user_input').val();
 		let mail = $('.mail_input').val();
-		let addr = $('.address_input_3"').val();
+		let addr = $('.address_input_3').val();
 		
 		if(id === "") {
 			$(".final_id_ck").css('display', 'block');	
@@ -41,8 +40,38 @@ $(document).ready(function() {
 			pwckCheck = true;
 		}
 		
-		//$("#join_form").attr("action", "/member/join");
-		//$("#join_form").submit();
+		if(name === "") {
+			$('.final_name_ck').css('display', 'block');
+			nameCheck = false;
+		} else {
+			$('.final_name_ck').css('display', 'none');
+			nameCheck = true;
+		}
+		
+		if(mail === "") {
+			$('.final_mail_ck').css('display', 'block');
+			mailCheck = false;
+		} else {
+			$('.final_mail_ck').css('display', 'none');
+			mailCheck = true;
+		}
+		
+		if(addr === "") {
+			$('.final_addr_ck').css('display', 'block');	
+			addressCheck = false;
+		} else {
+			$('.final_addr_ck').css('display', 'none');	
+			addressCheck = true;
+		}
+		
+		/* 최종 유효성 검사 */
+        if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&addressCheck ){
+ 			$("#join_form").attr("action", "/member/join");
+			$("#join_form").submit();
+			location.href = 'http://localhost:8181/main';
+        }    
+		
+		return false;
 	});
 });
 
@@ -71,8 +100,19 @@ $(".id_input").on("propertychange change keyup paste input", function() {
 
 // 비밀번호 확인 일치 유효성 검사
 $('.pwck_input').on("propertychange change keyup paste input", function(){
+	let pw = $('.pw_input').val();
+	let pwck = $('.pwck_input').val();
+	$('.final_pwck_ck').css('display', 'none');
 	
-	    
+	if(pw === pwck) {
+		$('.pwck_input_re_1').css('display', 'block');
+		$('.pwck_input_re_2').css('display', 'none');		
+		pwckcorCheck = true;
+	} else {
+		$('.pwck_input_re_1').css('display', 'none');
+		$('.pwck_input_re_2').css('display', 'block');		
+		pwckcorCheck = false;
+	}
 });    
  
 
