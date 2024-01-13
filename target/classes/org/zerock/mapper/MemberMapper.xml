@@ -30,5 +30,16 @@
 		WHERE memberId = #{memberId}
   	</select>
   	
-  	
+  	<select id="memberLogin" resultType="org.zerock.model.MemberVO">
+  		SELECT
+  			memberId,
+  			memberPw,
+  			memberName,
+  			adminCk,
+  			money,
+  			point
+  		FROM
+  			book_member
+  		WHERE memberId = #{memberId}
+  	</select>
   </mapper>

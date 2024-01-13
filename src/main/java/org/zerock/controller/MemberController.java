@@ -3,14 +3,18 @@ package org.zerock.controller;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.model.MemberVO;
 import org.zerock.service.MemberService;
 
@@ -26,24 +30,35 @@ public class MemberController {
 //	@Autowired
 //	private JavaMailSender mailSender;
 	
+	@Autowired
+	private BCryptPasswordEncoder pwEncoder;
+	
+	//íšŒì›ê°€ì… í˜ì´ì§€ ì´ë™
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public void joinGET() {
-		log.info("È¸¿ø°¡ÀÔ ÆäÀÌÁö ÁøÀÔ");
+		log.info("íšŒì›ê°€ì… í˜ì´ì§€ ì§„ì…");
 	}
 	
-	//·Î±×ÀÎ ÆäÀÌÁö ÀÌµ¿
+	
+	//ë¡œê·¸ì¸ í˜ì´ì§€ ì´ë™
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGET() {
-		log.info("·Î±×ÀÎ ÆäÀÌÁö ÁøÀÔ");
+		log.info("ë¡œê·¸ì¸ í˜ì´ì§€ ì§„ì…");
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	@ResponseBody
-	public void joinPOST(MemberVO member) throws Exception {
+	public String joinPOST(MemberVO member) throws Exception {
+		
+		String rawPw = "";
+		String encodePw = "";
+		
+		rawPw = member.getMemberPw();
+		encodePw = pwEncoder.encode(rawPw);
+		member.setMemberPw(encodePw);
 		
 		memberService.memberJoin(member);
 		
-		log.info("join ¼º°ø");
+		return "redirect:/main";
 	}
 	
 	@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
@@ -52,8 +67,6 @@ public class MemberController {
 		
 		int result = memberService.idCheck(memberId);
 		
-		//log.info("°á°ú°ª = " + result);
-		
 		if(result != 0) {
 			return "fail";
 		} else {
@@ -61,37 +74,87 @@ public class MemberController {
 		}
 	}
 	
-// 	ÀÌ¸ŞÀÏ Àü¼Û ½Ã ¼­¹ö ¿À·ù ¹ß»ı ³×ÀÌ¹ö ¹®ÀÇ ÇÊ¿ä
-//	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public String LoginPOST(HttpServletRequest request, MemberVO member, RedirectAttributes rttr) throws Exception {
+	    HttpSession session = request.getSession();
+	    
+	    MemberVO lvo = memberService.memberLogin(member);
+	    boolean psMatch = pwEncoder.matches(member.getMemberPw(), lvo.getMemberPw());
+	    
+	    if (lvo != null && psMatch != false) {
+	        lvo.setMemberPw("");
+	        session.setAttribute("member", lvo);
+	        return "redirect:/main";
+	    } else {
+	        rttr.addFlashAttribute("result", 0);           
+	        return "redirect:/member/login";    
+	    }
+	}
+	
+	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+	public String logoutMainGET(HttpServletRequest request) {
+		
+		log.info("logoutMainGETë©”ì„œë“œ ì§„ì…");
+		
+		HttpSession session = request.getSession();
+		session.invalidate();
+		
+		return "redirect:/main";
+	}
+	
+	@RequestMapping(value = "/logout.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void logoutPOST(HttpServletRequest request) {
+		
+		log.info("logout");
+		
+		HttpSession session = request.getSession();
+		session.invalidate();
+	}
+	
+	/* ì´ë©”ì¼ ì¸ì¦ */
+//	@RequestMapping(value="/mailCheck", method=RequestMethod.GET)
 //	@ResponseBody
-//	public void mailcheckGET(String email) throws Exception {
+//	public String mailCheckGET(String email) throws Exception{
 //		
-//		log.info("µ¥ÀÌÅÍ Àü¼ÛÈ®ÀÎ");
-//		log.info("ÀÎÁõÀÌ¸ŞÀÏ: " + email);
-//		
+//		/* ë·°(View)ë¡œë¶€í„° ë„˜ì–´ì˜¨ ë°ì´í„° í™•ì¸ */
+//		log.info("ì´ë©”ì¼ ë°ì´í„° ì „ì†¡ í™•ì¸");
+//		log.info("ì´ë©”ì¼ : " + email);
+//				
+//		/* ì¸ì¦ë²ˆí˜¸(ë‚œìˆ˜) ìƒì„± */
 //		Random random = new Random();
 //		int checkNum = random.nextInt(888888) + 111111;
-//		log.info("ÀÎÁõ¹øÈ£: " + checkNum);
+//		log.info("ì¸ì¦ë²ˆí˜¸ " + checkNum);
 //		
-//		String setFrom = "quaj123@naver.com";
+//		/* ì´ë©”ì¼ ë³´ë‚´ê¸° */
+//		String setFrom = "sjinjin6@naver.com";
 //		String toMail = email;
-//		String title = "È¸¿ø°¡ÀÔ ÀÎÁõ ÀÌ¸ŞÀÏ ÀÔ´Ï´Ù.";
-//		String content = "È¨ÆäÀÌÁö¸¦ ¹æ¹®ÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù."+
-//						 "<br><br>"+
-//						 "ÀÎÁõ ¹øÈ£´Â" + checkNum + " ÀÔ´Ï´Ù."+
-//						 "ÇØ´ç ÀÎÁõ¹øÈ£¸¦ ÀÎÁõ¹øÈ£ È®ÀÎ¶õ¿¡ ±âÀÔÇÏ¿© ÁÖ¼¼¿ä";
+//		String title = "íšŒì›ê°€ì… ì¸ì¦ ì´ë©”ì¼ ì…ë‹ˆë‹¤.";
+//		String content = 
+//				"í™ˆí˜ì´ì§€ë¥¼ ë°©ë¬¸í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤." +
+//				"<br><br>" + 
+//				"ì¸ì¦ ë²ˆí˜¸ëŠ” " + checkNum + "ì…ë‹ˆë‹¤." + 
+//				"<br>" + 
+//				"í•´ë‹¹ ì¸ì¦ë²ˆí˜¸ë¥¼ ì¸ì¦ë²ˆí˜¸ í™•ì¸ë€ì— ê¸°ì…í•˜ì—¬ ì£¼ì„¸ìš”.";		
 //		
 //		try {
+//			
 //			MimeMessage message = mailSender.createMimeMessage();
-//            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-//            helper.setFrom(setFrom);
-//            helper.setTo(toMail);
-//            helper.setSubject(title);
-//            helper.setText(content,true);
-//            mailSender.send(message);
-//		} catch (Exception e) {
+//			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+//			helper.setFrom(setFrom);
+//			helper.setTo(toMail);
+//			helper.setSubject(title);
+//			helper.setText(content,true);
+//			mailSender.send(message);
+//			
+//		}catch(Exception e) {
 //			e.printStackTrace();
-//		}
-//	}
+//		}		
+//		
+//		String num = Integer.toString(checkNum);		
+//		
+//		return num;
+//		
+//	}	
 	
 }

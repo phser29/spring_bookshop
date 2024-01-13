@@ -12,7 +12,7 @@
 <body>
 
 <div class="wrapper">
-	<form id="join_form">
+	<form id="join_form" method="post">
 	<div class="wrap">
 			<div class="subjecet">
 				<span>회원가입</span>
@@ -36,7 +36,7 @@
 			<div class="pwck_wrap">
 				<div class="pwck_name">비밀번호 확인</div>
 				<div class="pwck_input_box">
-					<input type="password" class="pwck_input" name="memberPw">
+					<input type="password" class="pwck_input">
 				</div>
 				<span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span>
 				<span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
@@ -55,6 +55,8 @@
 					<input type="text" class="mail_input" name="memberMail">
 				</div>
 				<span class="final_mail_ck">이메일을 입력해주세요.</span>
+				<span class="mail_input_box_re1">이메일 형식이 일치합니다.</span>
+				<span class="mail_input_box_re2">이메일 형식이 일치하지 않습니다.</span>
 <!-- 				<div class="mail_check_wrap"> -->
 <!-- 					<div class="mail_check_input_box" id="mail_check_input_box_false"> -->
 <!-- 						<input class="mail_check_input" disabled="disabled"> -->
@@ -89,7 +91,7 @@
 				<span class="final_addr_ck">주소를 입력해주세요.</span>
 			</div>
 			<div class="join_button_wrap">
-				<input type="button" class="join_button" value="가입하기">
+				<input type="button" class="join_button" value="가입하기"><br/><br/>
 			</div>
 		</div>
 	</form>

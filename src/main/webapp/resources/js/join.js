@@ -3,10 +3,25 @@ let idckCheck = false;
 let pwCheck = false;
 let pwckCheck = false;
 let nameCheck = false;
-let mailnumCheck = false;
+let mailFormCheck = false;
 let addressCheck = false;
 
 $(document).ready(function() {
+	$('.mail_input').on("propertychange change keyup paste input", function() {
+		let email = $(".mail_input").val(); 
+		let form = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		
+		if(form.test(email)) {
+			$('.mail_input_box_re1').css('display', 'block');
+			$('.mail_input_box_re2').css('display', 'none');
+			mailFormCheck = true;
+		} else {
+			$('.mail_input_box_re1').css('display', 'none');
+			$('.mail_input_box_re2').css('display', 'block');
+			mailFormCheck = false;
+		}	
+	});
+	
 	// 회원가입 함수
 	$(".join_button").click(function() {
 		let id = $('.id_input').val();
@@ -65,11 +80,11 @@ $(document).ready(function() {
 		}
 		
 		/* 최종 유효성 검사 */
-        if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&addressCheck ){
+        if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&addressCheck&&mailFormCheck){
+        	alert("회원가입 완료");
  			$("#join_form").attr("action", "/member/join");
 			$("#join_form").submit();
-			location.href = 'http://localhost:8181/main';
-        }    
+        }
 		
 		return false;
 	});
@@ -114,7 +129,24 @@ $('.pwck_input').on("propertychange change keyup paste input", function(){
 		pwckcorCheck = false;
 	}
 });    
- 
+
+
+$('.pwck_input').on("propertychange change keyup paste input", function(){
+	let pw = $('.pw_input').val();
+	let pwck = $('.pwck_input').val();
+	$('.final_pwck_ck').css('display', 'none');
+	
+	if(pw === pwck) {
+		$('.pwck_input_re_1').css('display', 'block');
+		$('.pwck_input_re_2').css('display', 'none');		
+		pwckcorCheck = true;
+	} else {
+		$('.pwck_input_re_1').css('display', 'none');
+		$('.pwck_input_re_2').css('display', 'block');		
+		pwckcorCheck = false;
+	}
+});    
+
 
 // 인증 이메일 전송
 $(".mail_check_button").click(function() {

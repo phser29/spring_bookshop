@@ -6,7 +6,7 @@
 
 /* 화면 전체 렙 */
 .wrapper{
-	width: 1900px;	
+	width: 100%;	
 }
 
 /* content 랩 */
@@ -272,30 +272,45 @@
 /* 회원가입 유효성 검사 */
 .final_id_ck{
     display: none;
+    color: red;
 }
 .final_pw_ck{
     display: none;
+    color: red;
 }
 .final_pwck_ck{
     display: none;
+    color: red;
 }
 .final_name_ck{
     display: none;
+    color: red;
 }
 .final_mail_ck{
     display: none;
+    color: red;
 }
 .final_addr_ck{
     display: none;
+    color: red;
 }
 
 /* 비밀번호 확인 일치 검사 */
-.pwck_input_re_1{
-        color : green;
-        display : none;    
+.pwck_input_re_1 {
+	color : green;
+    display : none;    
 }
-.pwck_input_re_2{
-        color : red;
-        display : none;    
+.pwck_input_re_2 {
+    color : red;
+	display : none;    
 }    
- 
+
+/*이메일 형식 검사*/
+.mail_input_box_re1 {
+	color: green;
+	display: none;
+}
+.mail_input_box_re2 {
+	color: red;
+	display: none;
+}
