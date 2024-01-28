@@ -60,8 +60,11 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/authorDetail")
-	public void authorGetInfoGET() throws Exception {
+	public void authorGetInfoGET(int authorId, Criteria cri, Model model) throws Exception {
+		log.info("authorDetail.. " + authorId);
 		
+		model.addAttribute("cri", cri);
+		model.addAttribute("authorInfo", authorService.authorGetDetail(authorId));
 	}
 	
 	@RequestMapping(value = "/authorEnroll.do", method = RequestMethod.POST)
