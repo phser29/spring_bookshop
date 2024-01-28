@@ -38,7 +38,7 @@
 	                   	<tr>
 	                   		<td><c:out value="${list.authorId}"></c:out> </td>
 	                   		<td>
-	                   			<a class="move" href='<c:out value="${list.authorId}"/>'>
+	                   			<a class="move" href="/admin/authorDetail?authorId=${list.authorId }">
 									<c:out value="${list.authorName}"></c:out>
 								</a> 
 	                   		</td>
@@ -49,13 +49,11 @@
                    	</c:forEach>
                    </table>
            		</c:if>
-           		
            		<c:if test="${listCheck == 'empty' }">
-           			<div class="table_empty">
-           				등록된 작가가 없습니다.
-           			</div>
-           		</c:if>
-                </div>                    
+			       <div class="table_empty">
+			       		등록된 작가가 없습니다.
+			       </div>
+		        </c:if>
            </div>
            <div class="search_wrap">
 		       <form id="searchForm" action="/admin/authorManage" method="get">
@@ -125,7 +123,7 @@ $('.pageMaker_btn a').on("click", function(e) {
 	
 	moveForm.find("input[name='pageNum']").val($(this).attr("href"));
 	moveForm.submit();
-})
+});
 
 //작가 검색 버튼 동작
 let searchForm = $('#searchForm'); 
@@ -138,9 +136,18 @@ $('#searchForm button').on("click", function(e) {
 		return false;
 	}
 	
-	searchForm.find("input[name='pageNum']").val("1");
-	searchForm.submit();
-})
+// 	searchForm.find("input[name='pageNum']").val("1");
+// 	searchForm.submit();
+// });
+
+//작가 상세 페이지 이동
+$('.move').on("click", function(e) {
+	e.preventDefault();
+	
+	moveForm.append("<input type='hidden' name='authorId' value='"+$(this).attr("href")+"'");
+	moveForm.attr('action', '/admin/authorDetail');
+	moveForm.submit();
+});
 
 </script>
 </body>

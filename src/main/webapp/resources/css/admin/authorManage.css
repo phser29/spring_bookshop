@@ -269,6 +269,12 @@ ul{
     font-size: 25px;
 }
 
+/* a 태그관한 css */
+.author_table a{
+	color:#1088ed;
+	font-weight: 500;
+}
+
 /* float 속성 해제 */
 .clearfix{
     clear: both;
