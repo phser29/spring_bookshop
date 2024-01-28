@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.zerock.mapper.AuthorMapper">
+	<!-- 작가 등록 -->
+	<insert id="authorEnroll">
+		INSERT INTO author
+		(
+			authorName,
+			nationId,
+			authorIntro			
+		)
+		VALUES
+		(
+			#{authorName},
+			#{nationId},
+			#{authorIntro}
+		)
+	</insert>
+	
+	<!-- 작가 목록 -->
+	<select id="authorGetList" resultType="org.zerock.model.AuthorVO">
+		SELECT
+			authorid, 
+			authorname, 	
+			nationid,
+			regdate,
+			updatedate
+		FROM
+			author
+		<if test="keyword != null">
+			WHERE authorname LIKE CONCAT('%',#{keyword},'%') 
+		</if>
+		ORDER BY authorid desc
+		LIMIT #{skip}, #{amount}
+	</select>
+	
+	<select id="authorGetTotal" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM author
+		<if test="keyword != null">
+			WHERE authorname LIKE CONCAT('%',#{keyword},'%')
+		</if>
+	</select>
+	
+	<select id="authorGetDetail" resultType="org.zerock.model.AuthorVO">
+		SELECT 
+			*
+		FROM author
+		WHERE authorid = #{authorId}
+	</select>
+	
+  </mapper>

@@ -84,9 +84,11 @@ $(document).ready(function() {
         	alert("회원가입 완료");
  			$("#join_form").attr("action", "/member/join");
 			$("#join_form").submit();
+        } else {
+        	alert('다시 시도해주세요');
+        	return false;
         }
 		
-		return false;
 	});
 });
 

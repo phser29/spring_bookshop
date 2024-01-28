@@ -96,7 +96,7 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="/resources/js/join.js"></script>
+<script type="text/javascript" src="/resources/js/member/join.js"></script>
 <script type="text/javascript">
 // 다음 주소 팝업
 function daumAddress() {

@@ -40,6 +40,6 @@
 		</form>
 	</div>
 </div>
-<script src="/resources/js/login.js"></script>
+<script src="/resources/js/member/login.js"></script>
 </body>
 </html>

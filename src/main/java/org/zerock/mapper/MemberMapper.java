@@ -1,7 +1,9 @@
 package org.zerock.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.zerock.model.MemberVO;
 
+@Mapper
 public interface MemberMapper {
 	
 	public void memberJoin(MemberVO member);

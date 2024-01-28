@@ -7,9 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.zerock.model.MemberVO;
 
-import lombok.extern.log4j.Log4j;
 
-@Log4j
 public class AdminInterceptor implements HandlerInterceptor {
 	
 	@Override

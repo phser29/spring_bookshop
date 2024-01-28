@@ -75,8 +75,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String LoginPOST(HttpServletRequest request, MemberVO member, RedirectAttributes rttr) throws Exception {
-	    HttpSession session = request.getSession();
+	public String LoginPOST(HttpSession session, MemberVO member, RedirectAttributes rttr) throws Exception {
 	    
 	    MemberVO lvo = memberService.memberLogin(member);
 	    boolean psMatch = pwEncoder.matches(member.getMemberPw(), lvo.getMemberPw());
@@ -87,7 +86,7 @@ public class MemberController {
 	        return "redirect:/main";
 	    } else {
 	        rttr.addFlashAttribute("result", 0);           
-	        return "redirect:/member/login";    
+	        return "redirect:/member/login";
 	    }
 	}
 	
@@ -104,7 +103,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/logout.do", method = RequestMethod.POST)
 	@ResponseBody
-	public void logoutPOST(HttpServletRequest request) {
+	public void logoutPOST(HttpServletRequest request) { // REST 방식
 		
 		log.info("logout");
 		
