@@ -59,6 +59,11 @@ public class AdminController {
 		model.addAttribute("pageMaker", pageMaker);
 	}
 	
+	@RequestMapping(value = "/authorDetail")
+	public void authorGetInfoGET() throws Exception {
+		
+	}
+	
 	@RequestMapping(value = "/authorEnroll.do", method = RequestMethod.POST)
 	public String autherEnrollPOST(AuthorVO author, RedirectAttributes rttr) throws Exception{
 		log.info("authorEnroll: " + author);
@@ -68,7 +73,6 @@ public class AdminController {
 		
 		return "redirect:/admin/authorManage";
 	}
-	
 	
 }
 
