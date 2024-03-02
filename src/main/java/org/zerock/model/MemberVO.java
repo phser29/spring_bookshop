@@ -20,9 +20,11 @@ public class MemberVO {
 	private String memberAddr1;
 	private String memberAddr2;
 	private String memberAddr3;
+	//관리자 여부
 	private int adminCk;
 	private Date regDate;
 	private int money;
+	//할인 포인트
 	private int point;
 	
 }
