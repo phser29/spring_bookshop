@@ -38,7 +38,7 @@
 	                   	<tr>
 	                   		<td><c:out value="${list.authorId}"></c:out> </td>
 	                   		<td>
-	                   			<a class="move" href="/admin/authorDetail?authorId=${list.authorId }">
+	                   			<a class="move" href='<c:out value="${list.authorId}"/>'>
 									<c:out value="${list.authorName}"></c:out>
 								</a> 
 	                   		</td>
@@ -103,8 +103,10 @@
 /* 작가 등록 성공 경고창 */
 $(document).ready(function() {
 	let result = "<c:out value='${enroll_result}'/>";
+	let mresult = '<c:out value="${modify_result}"/>';
 	
 	checkResult(result);
+	checkmResult(mresult);
 	
 	function checkResult(result) {
 		if(result === '') {
@@ -112,6 +114,15 @@ $(document).ready(function() {
 		}
 		
 		alert("작가 '${enroll_result}'을 등록하였습니다.");
+	}
+	
+	function checkmResult(mresult) {
+		if(mresult === '1') {
+			alert("작가 정보 수정을 완료하였습니다.");
+		} else if(mresult === '0') {
+			alert("작가 정보 수정을 하지 못하였습니다.");
+			location.href='admin/authorModify';
+		}
 	}
 });
 
@@ -136,15 +147,15 @@ $('#searchForm button').on("click", function(e) {
 		return false;
 	}
 	
-// 	searchForm.find("input[name='pageNum']").val("1");
-// 	searchForm.submit();
-// });
+	searchForm.find("input[name='pageNum']").val("1");
+	searchForm.submit();
+});
 
 //작가 상세 페이지 이동
 $('.move').on("click", function(e) {
 	e.preventDefault();
 	
-	moveForm.append("<input type='hidden' name='authorId' value='"+$(this).attr("href")+"'");
+	moveForm.append("<input type='hidden' name='authorId' value='"+$(this).attr("href")+"'>");
 	moveForm.attr('action', '/admin/authorDetail');
 	moveForm.submit();
 });

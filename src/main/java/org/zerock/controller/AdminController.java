@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,7 +41,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/authorEnroll", method = RequestMethod.GET)
 	public void autherEnrollGET() throws Exception{
-		log.info("작가 등록 페이지 접속");
+		log.info("작가 등록 페이지 접속"); 
 	}
 	
 	@RequestMapping(value = "/authorManage", method = RequestMethod.GET)
@@ -59,7 +60,7 @@ public class AdminController {
 		model.addAttribute("pageMaker", pageMaker);
 	}
 	
-	@RequestMapping(value = "/authorDetail")
+	@RequestMapping(value = {"/authorDetail", "/authorModify"}, method = RequestMethod.GET)
 	public void authorGetInfoGET(int authorId, Criteria cri, Model model) throws Exception {
 		log.info("authorDetail.. " + authorId);
 		
@@ -73,6 +74,17 @@ public class AdminController {
 		
 		authorService.authorEnroll(author);
 		rttr.addFlashAttribute("enroll_result", author.getAuthorName());
+		
+		return "redirect:/admin/authorManage";
+	}
+	
+	@RequestMapping(value = "/authorModify", method = RequestMethod.POST)
+	public String authorModifyPOST(AuthorVO authorVO, RedirectAttributes rttr) throws Exception {
+		log.info("authroModifyPOST.. " + authorVO);
+		
+		int result = authorService.authorModify(authorVO);
+		
+		rttr.addFlashAttribute("modify_result", result);
 		
 		return "redirect:/admin/authorManage";
 	}

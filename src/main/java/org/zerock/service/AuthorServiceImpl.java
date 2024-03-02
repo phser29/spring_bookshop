@@ -39,5 +39,10 @@ public class AuthorServiceImpl implements AuthorService {
 		return mapper.authorGetDetail(authorId);
 	}
 
+	@Override
+	public int authorModify(AuthorVO authorVO) throws Exception {
+		int author = mapper.authorModify(authorVO);
+		return author;
+	}
 	
 }

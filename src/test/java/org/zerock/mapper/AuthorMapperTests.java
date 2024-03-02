@@ -48,7 +48,7 @@ public class AuthorMapperTests {
 		cri.setKeyword("유홍준");
 		
 		int total = mapper.authorGetTotal(cri);
-		log.info("total.. " + total);
+		log.info("total... " + total);
 	}
 	
 	@Test
@@ -56,7 +56,22 @@ public class AuthorMapperTests {
 		int authorId = 30;
 		
 		AuthorVO author = mapper.authorGetDetail(authorId);
-		log.info("author.... "+author);
+		log.info("author... "+author);
+	}
+	
+	@Test
+	public void authorModifyTest() {
+		AuthorVO author = new AuthorVO();
+		
+		author.setAuthorId(1);
+		log.info("수정 전.. " + mapper.authorGetDetail(author.getAuthorId()));
+		
+		author.setAuthorName("update");
+		author.setNationId("01");
+		author.setAuthorIntro("update complate");		
+		
+		mapper.authorModify(author);
+		log.info("수정 후.. " + mapper.authorGetDetail(author.getAuthorId()));
 	}
 	
 }

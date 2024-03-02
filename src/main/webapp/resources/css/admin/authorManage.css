@@ -224,11 +224,11 @@ ul{
     margin-left: 20px;
 }
 .next, .prev {
-    border: 1px solid #ccc;
+    border: 1px solid black;
     padding: 0 10px;
 }
 .next a, .prev a {
-    color: #ccc;
+    color: black;
 }
 
 /* 현재 페이지 버튼 */
@@ -239,7 +239,7 @@ ul{
 
 /* 검색 영역 */
 .search_wrap{
-	margin-top:15px;
+	margin-top:8px;
 }
 .search_input{
     position: relative;

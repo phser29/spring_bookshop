@@ -37,5 +37,19 @@ public class AuthorServiceTests {
 		log.info("author... " + authorService.authorGetDetail(authorId));
 	}
 	
-}
+	@Test
+	public void authorModifyTest() throws Exception {
+		AuthorVO authorVO = new AuthorVO();
+		authorVO.setAuthorId(1);
+		
+		log.info("수정 전..." + authorService.authorGetDetail(authorVO.getAuthorId()));
+		
+		authorVO.setAuthorName("(service) 수정");
+		authorVO.setNationId("01");
+		authorVO.setAuthorIntro("(service)소개 수정");
+		
+		authorService.authorModify(authorVO);
+		log.info("수정 후..." + authorService.authorGetDetail(authorVO.getAuthorId()));
+	}
+}	
 

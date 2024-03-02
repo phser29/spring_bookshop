@@ -14,4 +14,6 @@ public interface AuthorService {
 	public int authorGetTotal(Criteria cri) throws Exception;
 	
 	public AuthorVO authorGetDetail(int authorId) throws Exception;
+	
+	public int authorModify(AuthorVO authorVO) throws Exception;
 }

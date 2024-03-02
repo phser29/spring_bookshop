@@ -21,7 +21,7 @@ public class Criteria {
 		this.skip = (pageNum - 1) * amount;
 	}
 	
-	//기본 페이지 갯수
+	//기본 게시물 갯수
 	public Criteria() {
 		this(1, 10);
 	}
