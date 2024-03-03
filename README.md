@@ -1,2 +1,2 @@
-#쇼핑몰 DB ERD
+# 쇼핑몰 DB ERD
 
