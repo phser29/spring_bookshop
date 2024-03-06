@@ -5,16 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.model.AuthorVO;
 import org.zerock.model.BookVO;
+import org.zerock.model.CateVO;
 import org.zerock.model.Criteria;
 import org.zerock.model.PageDTO;
 import org.zerock.service.AdminService;
 import org.zerock.service.AuthorService;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -35,12 +37,18 @@ public class AdminController {
 	
 	@RequestMapping(value = "/goodsManage", method = RequestMethod.GET)
 	public void goodsManageGET() throws Exception{
-		log.info("상품 등록 페이지 접속");
+		log.info("상품 관리 페이지 접속");
+		
 	}
 	
 	@RequestMapping(value = "/goodsEnroll", method = RequestMethod.GET)
 	public void goodsEnrollGET() throws Exception{
-		log.info("상품 관리 페이지 접속");
+		log.info("상품 등록 페이지 접속");
+		
+		List<CateVO> list = adminService.cateList();
+		ObjectMapper objm = new ObjectMapper();
+		String cateList = objm.writeValueAsString(list);
+		
 	}
 	
 	@RequestMapping(value = "/authorEnroll", method = RequestMethod.GET)
@@ -84,7 +92,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/authorPop", method = RequestMethod.GET)
 	public void authorPopGET(Criteria cri, Model model) throws Exception {
-		log.info("authorPopGET..");
+		log.info("authorPopGET...");
 		
 		cri.setAmount(5);
 		
@@ -93,7 +101,7 @@ public class AdminController {
 		if(!list.isEmpty()) {
 			model.addAttribute("list", list);	
 		} else {
-			model.addAttribute("listCheck", "empty");	
+			model.addAttribute("listCheck", "empty");
 		}
 		
 		//페이지 이동 인터페이스 데이터
