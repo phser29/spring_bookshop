@@ -35,4 +35,10 @@ public class AdminMapperTests {
 		mapper.bookEnroll(book);
 	}
 	
+	@Test
+	public void cateListTest() throws Exception {
+		log.info("cateList().." + mapper.cateList());
+		
+	}
+	
 }

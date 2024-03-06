@@ -34,7 +34,7 @@
 				</c:if>
 				
 				<div class="login_button_wrap">
-					<input type="button" class="login_button" value="로그인">
+					<input type="button" class="login_button" onkeyup="enterkey()" value="로그인">
 				</div>			
 			</div>
 		</form>

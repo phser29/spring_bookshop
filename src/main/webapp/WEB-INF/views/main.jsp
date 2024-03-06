@@ -66,7 +66,6 @@
                         <span>회원 : ${member.memberName}</span>
                         <span>충전금액 :\ ${member.money}</span>
                         <span>포인트 : ${member.point}</span>
-                        <a href="/member/logout.do">로그아웃</a>
                     </div>
 				</c:if>
 			</div>

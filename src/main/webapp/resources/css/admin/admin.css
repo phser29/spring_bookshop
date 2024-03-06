@@ -87,10 +87,10 @@ ul{
 .admin_navi_wrap li a:active {color: black;}
 .admin_navi_wrap li a:hover {color: black;}
 
-/* 
-.admin_list_01{
-    background-color: #c8c8c8;
-} */
+
+/* .admin_list_01{ */
+/*     background-color: #c8c8c8; */
+/* }  */
  
  
 /* 관리자페이지 컨텐츠 영역 */
@@ -98,6 +98,11 @@ ul{
     width: 80%;
     float:left;
     min-height: 700px;
+}
+
+.admin_content_main{
+    width: 80%;
+    margin-bottom: 200px;
 }
 
 .admin_content_wrap div{

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.model.AuthorVO;
+import org.zerock.model.BookVO;
 import org.zerock.model.Criteria;
 import org.zerock.model.PageDTO;
+import org.zerock.service.AdminService;
 import org.zerock.service.AuthorService;
 
 import lombok.extern.log4j.Log4j;
@@ -23,6 +25,8 @@ public class AdminController {
 	
 	@Autowired
 	private AuthorService authorService;
+	@Autowired
+	private AdminService adminService;
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public void adminMainGET() throws Exception {
@@ -69,13 +73,31 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/authorEnroll.do", method = RequestMethod.POST)
-	public String autherEnrollPOST(AuthorVO author, RedirectAttributes rttr) throws Exception{
+	public String autherEnrollPOST(AuthorVO author, RedirectAttributes rttr) throws Exception {
 		log.info("authorEnroll: " + author);
 		
 		authorService.authorEnroll(author);
-		rttr.addFlashAttribute("enroll_result", author.getAuthorName());
+		rttr.addFlashAttribute("author_result", author.getAuthorName());
 		
 		return "redirect:/admin/authorManage";
+	}
+	
+	@RequestMapping(value = "/authorPop", method = RequestMethod.GET)
+	public void authorPopGET(Criteria cri, Model model) throws Exception {
+		log.info("authorPopGET..");
+		
+		cri.setAmount(5);
+		
+		List<AuthorVO> list = authorService.authorGetList(cri);
+		
+		if(!list.isEmpty()) {
+			model.addAttribute("list", list);	
+		} else {
+			model.addAttribute("listCheck", "empty");	
+		}
+		
+		//페이지 이동 인터페이스 데이터
+		model.addAttribute("pageMaker", new PageDTO(cri, authorService.authorGetTotal(cri)));
 	}
 	
 	@RequestMapping(value = "/authorModify", method = RequestMethod.POST)
@@ -89,6 +111,15 @@ public class AdminController {
 		return "redirect:/admin/authorManage";
 	}
 	
+	@RequestMapping(value = "/goodsEnroll", method = RequestMethod.POST)
+	public String goodsEnrollPOST(BookVO book, RedirectAttributes rttr) throws Exception {
+		log.info("goodsEnrollPOST..." + book);
+		
+		adminService.bookEnroll(book);
+		rttr.addFlashAttribute("enroll_result", book.getBookName());
+		
+		return "redirect:/admin/authorManage";
+	}
 }
 
 

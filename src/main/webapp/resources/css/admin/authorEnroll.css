@@ -109,6 +109,8 @@ ul{
     line-height: 80px;
     color: white;	
 }
+
+
 /* 관리자 컨텐츠 메인 영역 */
 .form_section{
 	width: 95%;
@@ -199,6 +201,7 @@ ul{
 .footer_nav_container>ul>span{
 	margin: 0 4px;
 }
+
 /* footer 영역 */
 .footer{
 	width:100%;

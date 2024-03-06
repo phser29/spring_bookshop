@@ -32,5 +32,13 @@
 			#{bookContents}
 		)
 	</insert>
-
+	
+	<select id="cateList" resultType="org.zerock.model.CateVO">
+		SELECT
+			*
+		FROM 
+			bcate
+		ORDER BY catecode
+	</select>
+	
  </mapper>

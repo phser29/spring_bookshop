@@ -98,12 +98,12 @@
        </div>
                 
     <%@include file="../includes/admin/footer.jsp" %>
-    
-<script type="text/javascript">
+
+<script type="text/javascript" >
 /* 작가 등록 성공 경고창 */
 $(document).ready(function() {
-	let result = "<c:out value='${enroll_result}'/>";
-	let mresult = '<c:out value="${modify_result}"/>';
+	let result = "<c:out value='${author_result}'/>";
+	let mresult = "<c:out value='${modify_result}'/>";
 	
 	checkResult(result);
 	checkmResult(mresult);
@@ -111,9 +111,9 @@ $(document).ready(function() {
 	function checkResult(result) {
 		if(result === '') {
 			return;
+		} else {
+			alert("작가 '${author_result}'을 등록하였습니다.");		
 		}
-		
-		alert("작가 '${enroll_result}'을 등록하였습니다.");
 	}
 	
 	function checkmResult(mresult) {
@@ -123,6 +123,21 @@ $(document).ready(function() {
 			alert("작가 정보 수정을 하지 못하였습니다.");
 			location.href='admin/authorModify';
 		}
+	}
+	
+});
+
+$(document).ready(function() {
+	let eResult = '<c:out value="${enroll_result}"/>';
+	
+	checkResult(eResult);
+	
+	function checkResult(result) {
+		if(result === '') {
+			return;
+		}
+		
+		alert("상품'" + eResult + "'을 등록하였습니다.");
 	}
 });
 

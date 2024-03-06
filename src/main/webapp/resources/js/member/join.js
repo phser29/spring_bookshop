@@ -133,23 +133,6 @@ $('.pwck_input').on("propertychange change keyup paste input", function(){
 });    
 
 
-$('.pwck_input').on("propertychange change keyup paste input", function(){
-	let pw = $('.pw_input').val();
-	let pwck = $('.pwck_input').val();
-	$('.final_pwck_ck').css('display', 'none');
-	
-	if(pw === pwck) {
-		$('.pwck_input_re_1').css('display', 'block');
-		$('.pwck_input_re_2').css('display', 'none');		
-		pwckcorCheck = true;
-	} else {
-		$('.pwck_input_re_1').css('display', 'none');
-		$('.pwck_input_re_2').css('display', 'block');		
-		pwckcorCheck = false;
-	}
-});    
-
-
 // 인증 이메일 전송
 $(".mail_check_button").click(function() {
     let email = $(".mail_input").val(); 
