@@ -163,7 +163,7 @@ let cateSelect2 = $(".cate2");
 let cateSelect3 = $(".cate3");
 
 // 카테고리 배열 초기화 메서드
-function makeCateArray(obj,array,cateList, tier){
+function makeCateArray(obj, array, cateList, tier) {
 	for(let i = 0; i < cateList.length; i++){
 		if(cateList[i].tier === tier){
 			obj = new Object();
@@ -181,11 +181,24 @@ function makeCateArray(obj,array,cateList, tier){
 makeCateArray(cate1Obj,cate1Array,cateList,1);
 makeCateArray(cate2Obj,cate2Array,cateList,2);
 makeCateArray(cate3Obj,cate3Array,cateList,3);
-	
+
+//대분류
 for(let i = 0; i < cate1Array.length; i++){
 	cateSelect1.append("<option value='"+cate1Array[i].cateCode+"'>" + cate1Array[i].cateName + "</option>");
 }
 
+//중분류
+$(cateSelect1).on("change", function () {
+	let selectVal1 = $(this).find("option:selected").val();
+	cateSelect2.children().remove();
+	cateSelect2.append("<option value='none'>선택</option>");
+	
+	for(let i=0; i<cate2Array.length; i++) {
+		if(selectVal1 === cate2Array[i].cateParent) {
+			
+		}
+	}
+})
 
 </script>
 </body>
