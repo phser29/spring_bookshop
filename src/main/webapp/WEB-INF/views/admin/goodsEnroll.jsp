@@ -8,6 +8,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../resources/css/admin/goodsEnroll.css">
+<style type="text/css">
+/* 카테고리 css 설정 */
+.form_section_content select {		
+    width: 92%;
+    height: 35px;
+    font-size: 20px;
+    text-align-last: center;
+    margin-left: 5px;
+}
+
+.cate_wrap:not(:first-child) {
+    margin-top: 20px;
+}
+</style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
@@ -57,13 +71,30 @@
                     			<div class="form_section_content">
                     				<input name="publisher">
                     			</div>
-                    		</div>             
+                    		</div>            
                     		<div class="form_section">
                     			<div class="form_section_title">
                     				<label>책 카테고리</label>
                     			</div>
                     			<div class="form_section_content">
-                    				<input name="cateCode">
+                    				<div class="cate_wrap">
+										<h3>대분류</h3>
+										<select class="cate1">
+											<option selected value="none">선택</option>
+										</select>
+									</div>
+									<div class="cate_wrap">
+										<h3>중분류</h3>
+										<select class="cate2">
+											<option selected value="none">선택</option>
+										</select>
+									</div>
+									<div class="cate_wrap">
+										<h3>소분류</h3>
+										<select class="cate3" name="cateCode">
+											<option selected value="none">선택</option>
+										</select>
+									</div>
                     			</div>
                     		</div>      
                     		<div class="form_section">
@@ -117,5 +148,45 @@
         	<%@include file="../includes/admin/footer.jsp" %>
 
 <script type="text/javascript" src="../resources/js/admin/goodsEnroll.js"></script>
+<script type="text/javascript">
+let cateList = JSON.parse('${cateList}');
+
+let cate1Array = new Array();
+let cate2Array = new Array();
+let cate3Array = new Array();
+let cate1Obj = new Object();
+let cate2Obj = new Object();
+let cate3Obj = new Object();
+
+let cateSelect1 = $(".cate1");		
+let cateSelect2 = $(".cate2");
+let cateSelect3 = $(".cate3");
+
+// 카테고리 배열 초기화 메서드
+function makeCateArray(obj,array,cateList, tier){
+	for(let i = 0; i < cateList.length; i++){
+		if(cateList[i].tier === tier){
+			obj = new Object();
+			
+			obj.cateName = cateList[i].cateName;
+			obj.cateCode = cateList[i].cateCode;
+			obj.cateParent = cateList[i].cateParent;
+			
+			array.push(obj);		
+		}
+	}
+}	
+
+//배열 초기화
+makeCateArray(cate1Obj,cate1Array,cateList,1);
+makeCateArray(cate2Obj,cate2Array,cateList,2);
+makeCateArray(cate3Obj,cate3Array,cateList,3);
+	
+for(let i = 0; i < cate1Array.length; i++){
+	cateSelect1.append("<option value='"+cate1Array[i].cateCode+"'>" + cate1Array[i].cateName + "</option>");
+}
+
+
+</script>
 </body>
 </html>

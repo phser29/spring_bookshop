@@ -57,15 +57,6 @@
 				<span class="final_mail_ck">이메일을 입력해주세요.</span>
 				<span class="mail_input_box_re1">이메일 형식이 일치합니다.</span>
 				<span class="mail_input_box_re2">이메일 형식이 일치하지 않습니다.</span>
-<!-- 				<div class="mail_check_wrap"> -->
-<!-- 					<div class="mail_check_input_box" id="mail_check_input_box_false"> -->
-<!-- 						<input class="mail_check_input" disabled="disabled"> -->
-<!-- 					</div> -->
-<!-- 					<div class="mail_check_button"> -->
-<!-- 						<span>인증번호 전송</span> -->
-<!-- 					</div> -->
-<!-- 					<div class="clearfix"></div> -->
-<!-- 				</div> -->
 			</div>
 			<div class="address_wrap">
 				<div class="address_name">주소</div>

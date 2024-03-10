@@ -42,13 +42,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/goodsEnroll", method = RequestMethod.GET)
-	public void goodsEnrollGET() throws Exception{
+	public void goodsEnrollGET(Model model) throws Exception{
 		log.info("상품 등록 페이지 접속");
 		
 		List<CateVO> list = adminService.cateList();
+		
+		//JSON String 배열로 변환
 		ObjectMapper objm = new ObjectMapper();
 		String cateList = objm.writeValueAsString(list);
 		
+		model.addAttribute("cateList", cateList);
 	}
 	
 	@RequestMapping(value = "/authorEnroll", method = RequestMethod.GET)
@@ -113,7 +116,6 @@ public class AdminController {
 		log.info("authroModifyPOST.. " + authorVO);
 		
 		int result = authorService.authorModify(authorVO);
-		
 		rttr.addFlashAttribute("modify_result", result);
 		
 		return "redirect:/admin/authorManage";
@@ -128,6 +130,8 @@ public class AdminController {
 		
 		return "redirect:/admin/authorManage";
 	}
+	
+	
 }
 
 
