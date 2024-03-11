@@ -275,7 +275,6 @@ $("#enrollBtn").on("click",function(e){
 	}
 });
 
-
 /* 취소 버튼 */
 $("#cancelBtn").click(function(){
 	
