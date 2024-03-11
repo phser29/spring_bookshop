@@ -39,6 +39,7 @@ ul{
     cursor: pointer;
 }
 
+
 /* 관리제 페이지 상단 현페이지 정보 */
 .admin_top_wrap{
     height:110px;
@@ -91,6 +92,14 @@ ul{
     background-color: #c8c8c8;
 } 
 
+/* 입력란 공란 경고 태그 */
+.ck_warn{
+	display: none;
+    padding-top: 10px;
+    text-align: center;
+    color: #e05757;
+    font-weight: 300;    
+}
 
 /* 관리자페이지 컨텐츠 영역 */
 .admin_content_wrap{
