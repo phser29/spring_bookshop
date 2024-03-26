@@ -41,4 +41,19 @@
 		ORDER BY catecode
 	</select>
 	
+	<!-- 상품 리스트 -->
+	<select id="goodsGetList" resultType="org.zerock.model.BookVO">
+		
+	</select>
+  	
+  	<!-- 상품 총 갯수 -->
+  	<select id="goodsGetTotal" resultType="int">
+  		SELECT 
+  			COUNT(*) 
+  		FROM book
+ 
+  		<if test="keyword != null">
+  			WHERE bookName LIKE CONCAT('%', #{keyword}, '%')
+  		</if>
+  	</select>
  </mapper>
